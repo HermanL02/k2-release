@@ -1,236 +1,334 @@
-# K2 - The Koii Settlement Layer
-![K2 - Tick, Tock, Fast Blocks](https://docs.koii.network/assets/images/K2%20-%20Tick,%20Tock,%20Fast%20Blocks-5d576dbf6310f66a79e36af376974f24.svg)
+# How to Set Up and Run a K2 Validator
 
-<div align="center">
-  
-[![Docs](https://img.shields.io/badge/Docs-https%3A%2F%2Fdocs.koii.network-green)](https://docs.koii.network)
-[![Latest version](https://img.shields.io/github/v/release/koii-network/k2-release?label=Latest&sort=semver)](https://github.com/koii-network/k2-release/releases)
-[![Chat](https://img.shields.io/discord/776174409945579570?style=flat&label=Discord)](https://discord.gg/koii)
-![Stars](https://img.shields.io/github/stars/koii-network/desktop-node?style=social)
-![GitHub watchers](https://img.shields.io/github/watchers/koii-network/desktop-node?style=social)
-[![Twitter](https://img.shields.io/twitter/follow/KoiiNetwork)](https://twitter.com/KoiiNetwork)
-  
-</div>
+## Table of Contents
 
-# Running a K2 Node
+- [Run a K2 Validator](#run-a-k2-validator)
+  - [Validator Requirements](#validator-requirements)
+    - [Minimum Koii requirements](#minimum-koii-requirements)
+    - [Hardware requirements](#hardware-requirements)
+  - [Pre-requisites setup](#pre-requisites-setup)
+    - [1. Ensure system is up-to-date](#1-ensure-system-is-up-to-date)
+    - [2. User setup](#2-user-setup)
+    - [3. Koii cli setup](#3-koii-cli-setup)
+    - [4. Key pairs creation](#4-key-pairs-creation)
+    - [5. Network configuration](#5-network-configuration)
+    - [6. Systuning setup](#6-systuning-setup)
+  - [Validator setup](#validator-setup)
+    - [1. Systemd service setup](#1-systemd-service-setup)
+    - [2. Create a vote account](#2-create-a-vote-account)
+    - [3. Enable and Start the Koii validator](#3-enable-and-start-the-koii-validator)
+    - [4. Configure the Commission Rate for Your Validator](#4-configure-the-commission-rate-for-your-validator)
+    - [5. Update Your Validator Information](#5-update-your-validator-information)
+  - [Staking KOII in the validator](#staking-koii-in-the-validator)
+    - [1. Create a stake account](#1-create-a-stake-account)
+    - [2. Delegate the stake to your validator](#2-delegate-the-stake-to-your-validator)
+    - [3. Check your delegated stake's status](#3-check-your-delegated-stakes-status)
 
-_At this time we only support Ubuntu 20.04 LTS. We offer macOS and Windows binaries however we do not have official guides on how to set up your validator environment on those operating systems._
 
-## Staking
+## Validator Requirements
+
+### Minimum Koii requirements
 
 There is no minimum amount of KOII required to stake and participate in the voting process.
 
 To participate in the voting process you must configure your system, start a validator, and configure your voting and stake accounts. This guide will show you how to do this.
 
-## Quick Links
+### Hardware requirements
 
-1. [System Requirements](README.md#system-requirements)
-2. [System Setup](README.md#system-setup)
-3. [Validator Setup](README.md#validator-setup)
-4. [K2 Releases](https://github.com/koii-network/k2-release/releases)
+Here are the minimum hardware requirements for running a K2 Validator in terms of memory, computing, storage, and your operating system:
 
-## System Requirements
-To run a K2 node, you need some KOII tokens and also possess the minimum memory (128 GB or 258 GB), computational (12 or 16 cores), and storage requirements.
+- Memory
+    - 256GB, or more for consensus validator nodes
+    - 512GB, or more for RPC nodes
+- Compute
+    - 12 cores / 24 threads, or more @ minimum of 2.8GHz for consensus validator nodes
+    - 16 cores / 32 threads, or more for RPC nodes
+- Storage
+    
+    <aside>
+    💡 Accounts and ledger *can* be stored on the same disk, however due to high IOPS, this is not recommended
+    
+    </aside>
+    
+    For consensus validators:
+    
+    - PCIe Gen3 x4 NVME SSD, or better
+    - Accounts: 500GB, or larger. High TBW (Total Bytes Written)
+    - Ledger: 2TB or larger. High TBW suggested
+    
+    For RPC nodes:
+    
+    - A larger ledger disk if longer transaction history is required, accounts and ledger should not be stored on the same disk
+    - GPUs are not strictly necessary
+    - Network: 1 Gbps uplink and downlink speed, must be unshaped and unmetered
+    - Operating System
 
-There is no strict minimum amount of KOII tokens required to run the K2 node.
+Currently, we are testing our binaries for Ubuntu 22.04. We do provide binaries for other operating systems however the operation of these binaries is not guaranteed.
 
-### Minimum Hardware Requirements
+Once a properly sized Ubuntu 22.04 system is available we can begin to configure the system for operation of a validator node.
 
-Here are the minimum hardware requirements for running a K2 node in terms of memory, compute, storage, and your operating system:
+---
 
-**1. Memory**
+## Pre-requisites setup
 
-- 128GB, or more for consensus validator nodes
-- 258GB, or more for RPC nodes
+> **All following steps need to be run on the validator server, unless mentioned otherwise.**
+> 
 
-**2. Compute**
+### 1. Ensure system is up-to-date
 
-- 12 cores / 24 threads, or more @ minimum of 2.8GHz for consensus validator nodes
-- 16 cores / 32 threads, or more for RPC nodes
-
-**3. Storage**
-
-For consensus validators:
-
-- PCIe Gen3 x4 NVME SSD, or better
-- Accounts: 500GB, or larger. High TBW (Total Bytes Written)
-- Ledger: 1TB or larger. High TBW suggested
-
-For RPC nodes:
-
-- A larger ledger disk if longer transaction history is required, Accounts and ledger should not be stored on the same disk
-- GPUs are not strictly necessary
-- Network: 1 GBPS up and downlink speed, must be unshaped and unmetered
-
-**4. Operating System**
-
-Currently we are only supporting Ubuntu 20.04 for our validators. We do provide binaries for other operating systems however the operation of these binaries is not guaranteed.
-
-## System Setup
-
-<Description
-  text="This section provides a guide for how to configure your Ubuntu system"
-/>
-
-Before continuing with this section you should ensure that your environment is up to date:
+Ensure your Ubuntu system is up-to-date and has all the base packages required
 
 ```bash
-sudo apt update
-sudo apt upgrade
-```
-
-After updating your environment you will need to install the required packages
-
-```bash
+sudo apt update && sudo apt upgrade
 sudo apt install libssl-dev libudev-dev pkg-config zlib1g-dev llvm clang
 ```
 
-### Step 1: Create a new user
-
-We recommend running the validator under a user that is not `root` for security reasons. Create a user to run the validator
+### 2. User setup
 
 ```bash
 sudo adduser koii
 sudo usermod -aG sudo koii
-```
-
-Elevate into the user
-
-```bash 
 sudo su koii
+cd ~
 ```
 
-### Step 2: Install the Koii software
+<aside>
+⚠️ Please ensure that all the **following steps** happen within the home directory (/home/koii) of the `koii` user
 
-We host an install script that will install and configure the Koii validator software. Run it with the following command
+</aside>
+
+### 3. Koii cli setup
+
+* Required both on your secure computer for keypair generation and on the validator
 
 ```bash
-sh -c "$(curl -sSfL https://raw.githubusercontent.com/koii-network/k2-release/master/k2-install-init.sh)"
+sh -c "$(curl -sSfL https://raw.githubusercontent.com/koii-network/k2-release/master/k2-install-init_v1.16.6.sh)"
+# You may need to update PATH variable for the cli to be available
+echo 'export PATH="/home/koii/.local/share/koii/install/active_release/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+# Set the koii config to point to the testnet
+koii config set --url https://mainnet.koii.network
+
 ```
 
-This scipt will install and configure the validator software with an identity key and the `koii` cli configured for `testnet`. It is important to note that this identity key created IS NOT your validator identity. If you have a private key which is funded for staking with a validator you can replace the one generated with this script. 
+### 4. Key pairs creation
 
-If everything is configured correctly you can test it by running `koii balance` which will return the balance of the local key.
+> Run commands for **only this step** on a **secure computer** **separate from the validator server**
+You need to **install Koii cli on this secure computer** as well, to be able to use the  commands below
+> 
 
-### Step 3: Run the System Tuner
-
-This will configure certain aspects of your system to better support the validator.
-
-```bash
-koii-sys-tuner --user koii
-```
-
-## Validator Setup
-
-The following guide describes how to setup a validator on Ubuntu.
-
-### Identity Setup
-You will need to create the following keys on your system:
+We will be creating the following 4 key pairs:
 
 ```bash
 koii-keygen new --outfile ~/validator-keypair.json
-koii-keygen new --outfile ~/withdrawer-keypair.json
-koii-keygen new --outfile ~/stake-account-keypair.json
 koii-keygen new --outfile ~/vote-account-keypair.json
-
+koii-keygen new --outfile ~/stake-account-keypair.json
+koii-keygen new --outfile ~/authorized-withdrawer-keypair.json
+# To print your Public key(i.e. Wallet address) for any keypairs
+# koii-keygen pubkey <Path to Keypair>
 ```
-The authorized-withdrawer keypair is to be used as the ultimate authority over your validator. This keypair will be able to withdraw from your vote account and will have additional permission to change all other aspects of your vote account.
 
-This is a very important keypair since anyone in possession of it has the ability to permanently take control of your vote account and make any changes they please. Therefore, it's crucial to store your authorized-withdrawer keypair in a secure location.
+- **validator-keypair.json :** Identity of the validator on the network
+    - Copy this to the remote validator server at `/home/koii/validator-keypair.json`
+- **vote-account-keypair.json** : Voting account on the network
+    - Copy this to the remote validator server at `/home/koii/vote-account-keypair.json`
+- **stake-account-keypair.json** : Keypair for your staking wallet
+    - Keep this secure since this will hold the wallet that you delegate stake from
+- **authorized-withdrawer-keypair.json** : Authorized withdrawer keypair, allowd to withdraw funds from your validator vote account ****
 
-It doesn't have to be stored on your validator, and it shouldn't be stored anywhere where unauthorized people could access it.
+<aside>
+⚠️ The **authorized withdrawer keypair** is the ultimate authority over your validator. This keypair will be able to withdraw from your vote account and will have additional permission to change all other aspects of your vote account.
+*Anyone in possession of it can permanently take control of your vote account and make any changes as they please.*
 
-It's recommended that you use `systemctl` to manage the validator process. To set up the validator service you can complete the following steps.
+</aside>
 
-### Step 1: Create a Systemctl Service File for the Validator
+<aside>
+💡 **`stake-account-keypair.json`**  and **`authorized-withdrawer-keypair.json`** must be stored in a secure location **NOT on the validator.**
 
-Write a service configuration using the editor of your choice (nano, vim, etc). Do this as a system user with root permissions, not your validator user.
+</aside>
+
+### 5. Network configuration
+
+If you have firewall software installed you will need to allow traffic on the following ports:
 
 ```bash
-sudo nano /etc/systemd/system/koii-validator.service
+sudo ufw allow 10000:10500/udp
+sudo ufw allow 10000:10500/tcp
+sudo ufw allow 10899/tcp
+sudo ufw allow 10900/tcp
 ```
 
-Paste the service configuration below into your editor.
+### 6. Systuning setup
 
-```makefile
+- Create a file at `/etc/systemd/system/systuner.service` :
+    
+    ```bash
+    [Unit]
+    Description=Koii System Tuner 
+    After=network.target 
+    [Service]
+    Type=simple 
+    Restart=on-failure 
+    RestartSec=1 
+    ExecStart=/home/koii/.local/share/koii/install/active_release/bin/koii-sys-tuner --user koii
+    [Install]
+    WantedBy=multi-user.target
+    
+    ```
+    
+- Start and Enable the service to automatically start
+    
+    ```bash
+    sudo systemctl start systuner
+    sudo systemctl enable systuner
+    ```
+    
+
+---
+
+## Validator setup
+
+### 1. Systemd service setup
+
+**Copy the following file to `/home/koii/validator.sh` and make it executable**
+
+```bash
+#!/bin/sh
+exec /home/koii/.local/share/koii/install/active_release/bin/koii-validator \
+    --identity /home/koii/validator-keypair.json  \
+    --vote-account /home/koii/vote-account-keypair.json \
+    --ledger /home/koii/ledger/ledgerdb \
+    --accounts /home/koii/accounts/accountdb \
+    --log /home/koii/koii-rpc.log \
+    --rpc-bind-address 0.0.0.0 \
+    --rpc-port 10899 \
+    --gossip-port 10001 \
+    --dynamic-port-range 10002-10500 \
+    --enable-rpc-transaction-history \
+    --known-validator BPRAynHogErzYmEtAaeJFugRozXuU6EEqNa4rEKtF4mS \
+    --known-validator GqmBXoaetkMXzrMhCijJDsL5J4KDvDFzZuMEpoXYUowc \
+    --known-validator Hajii3WYcyRWDzENPJwaY2WGtNpYQ7vrCqpgaUi8fsUo \
+    --known-validator Fme35immspxuG6fboueneNDque5xLu62Ca2BHRuLgTSV \
+    --entrypoint entrypoint-1.mainnet.koii.network:10001 \
+    --entrypoint entrypoint-2.mainnet.koii.network:10001 \
+    --entrypoint entrypoint.mainnet.haji.ro:10001 \
+    --entrypoint entrypoint-koii-mainnet.stakecraft.com:10001 \
+    --rpc-faucet-address rpc-faucet.testnet.koii.network:9900 \
+    --init-complete-file /home/koii/init-completed \
+    --no-wait-for-vote-to-start-leader \
+    --enable-extended-tx-metadata-storage \
+    --maximum-full-snapshots-to-retain 20 \
+    --maximum-incremental-snapshots-to-retain 20 \
+    --limit-ledger-size 200000000 \
+    --only-known-rpc \
+    --wal-recovery-mode skip_any_corrupted_record \
+    --expected-genesis-hash 7rVVciNgm2m5JquMbKNxEYPryvzVtDktWhHLM4xFpfjq
+
+```
+
+**Create a systemd unit file at `/etc/systemd/system/koii-validator.service`** 
+
+```bash
 [Unit]
-Description=Koii Validator
-After=network.target
-
+Description=Koii Validator 
+After=network.target 
+Wants=systuner.service 
+StartLimitIntervalSec=0 
 [Service]
 User=koii
 Group=koii
+LimitNOFILE=1000000
+LogRateLimitIntervalSec=0
 Environment="PATH=/home/koii/.local/share/koii/install/active_release/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
-ExecStart=/home/koii/.local/share/koii/install/active_release/bin/koii-validator --identity /home/koii/validator-keypair.json --ledger /home/koii/validator-ledger --accounts /home/koii/validator-accounts --entrypoint k2-testnet-validator-1.koii.live:10001 --rpc-port 10899 --dynamic-port-range 10000-10500 --limit-ledger-size --gossip-port 10001 --log - --rpc-bind-address 0.0.0.0
+ExecStart=/home/koii/validator.sh
 Restart=on-failure
 RestartSec=10
-
 [Install]
 WantedBy=multi-user.target
 ```
 
-Save and close your editor.
+### 2. Create a vote account
 
-### Step 2: Enable and Start the Koii Validator Service
+<aside>
+🚧 You will need your validator keypair account to be funded with KOII tokens before continuing
 
-Enable the service
+</aside>
+
+<aside>
+⚠️ Please make sure your Koii CLI is configured for `mainnet.koii.network` and using your validator identity before continuing:
+
+`koii config set --url [https://mainnet.koii.network](https://testnet.koii.network/) --keypair ~/validator-keypair.json`
+
+</aside>
+
+Run the following command to create a vote-account on the network:
+
+```bash
+koii create-vote-account ~/vote-account-keypair.json ~/validator-keypair.json ~/authorized-withdrawer-keypair.json
+```
+
+### 3. Enable and Start the Koii validator
 
 ```bash
 sudo systemctl enable koii-validator.service
-```
-
-Start the service
-
-```bash
 sudo systemctl start koii-validator.service
-```
-
-Check the service status
-
-```bash
 sudo systemctl status koii-validator.service
 ```
 
-### Step 3: Create a Vote Account
+### 4. Configure the Commission Rate for Your Validator
 
-_**You will need your validator keypair to be funded with KOII tokens and have the validator service running before continuing.**_
+The commission rate determines the percentage of staking rewards allocated to the validator as a fee for their services, with the remainder distributed to the stakers. The commission rate must be a valid percentage between 0 and 100.
 
-For the remainder of the steps please elevate your user to your validator account.
-
-```bash
-sudo su koii
-```
-
-Using the keys created in the first portion of this guide, create a vote account.
+To update the commission rate for your validator's vote account, use the following command:
 
 ```bash
-koii create-vote-account ~/vote-account-keypair.json ~/validator-keypair.json ~/withdrawer-keypair.json
+koii vote-update-commission <VOTE_ACCOUNT_ADDRESS> <NEW_COMMISSION> --authorized-voter <PATH_TO_AUTHORIZED_VOTER_KEYPAIR>
 ```
+### 5. Update Your Validator Information
 
-### Step 4: Create a Stake Account
-
-Create the staking account using the validator's identity keypair and the authorized withdrawer keypair:
+To update or publish your validator's information on the Koii network, use the following command:
 
 ```bash
-koii create-stake-account ~/stake-account-keypair.json <AMOUNT_TO_STAKE> --stake-authority ~/validator-keypair.json --withdraw-authority ~/withdrawer-keypair.json
+koii validator-info publish "<VALIDATOR_NAME>" -w "<WEBSITE_URL>"
 ```
+---
 
-Where `<AMOUNT_TO_STAKE>` is the number of tokens you want to stake with.
+## Staking KOII in the validator
 
-### Step 5: Play Catchup
+> Commands in this section are to be run on the computer which has the stake account key pair (**NOT ON VALIDATOR**)
 
-Make sure your validator is caught up with the network.
+### 1. Create a stake account
+
+Run the following command, AFTER replacing <AMOUNT_TO_STAKE>.
 
 ```bash
-koii catchup ~/validator-keypair.json
+koii create-stake-account ~/stake-account-keypair.json <AMOUNT_TO_STAKE> --stake-authority ~/validator-keypair.json --withdraw-authority ~/authorized-withdrawer-keypair.json
 ```
 
-### Step 6: Delegate Your Stake
-
-Delegate the stake to the validator using the staking account and validator's identity keypair:
+### 2. Delegate the stake to your validator
 
 ```bash
-koii delegate-stake ~/stake-account-keypair.json <VALIDATOR_VOTE_ACCOUNT_ADDRESS> --stake-authority ~/validator-keypair.json
+koii delegate-stake ~/stake-account-keypair.json ~/vote-account-keypair.json --stake-authority ~/validator-keypair.json --force
 ```
 
-Replace `<VALIDATOR_VOTE_ACCOUNT_ADDRESS>` with the validator's public address which can be found using the `koii validator-info get` command.
+### 3. Check your delegated stake’s status
+
+Your validator will not show up in the koii validators list for 12 to 24 hours, you can check your stake to make sure it is properly delegated by running the following command
+
+```bash
+koii stake-account ~/stake-account-keypair.json
+```
+
+Expected output:
+
+```bash
+Balance: <Amount of KOII>
+Rent Exempt Reserve: <Amount of KOII>
+Delegated Stake: <Amount of KOII>
+Activating Stake: <Amount of KOII>
+Delegated Vote Account Address: <pubkey>
+Stake Authority: <pubkey>
+Withdraw Authority: <pubkey>
+```
+
+If you see a value in “Activating Stake” then you should be successfully voting within 24 hours
