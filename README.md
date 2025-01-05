@@ -23,7 +23,7 @@ Here are the minimum hardware requirements for running a K2 Validator in terms o
 - Storage
     
     <aside>
-    💡 Accounts and ledger *can* be stored on the same disk, however due to high IOPS, this is not recommended
+    💡 Accounts and ledger *can* be stored on the same disk, however due to high IOPS, this is not recommended
     
     </aside>
     
@@ -275,7 +275,7 @@ koii create-stake-account ~/stake-account-keypair.json <AMOUNT_TO_STAKE> --stake
 koii delegate-stake ~/stake-account-keypair.json ~/vote-account-keypair.json --stake-authority ~/validator-keypair.json --force
 ```
 
-### 3. Check your delegated stake's status
+### 3. Check your delegated stake’s status
 
 Your validator will not show up in the koii validators list for 12 to 24 hours, you can check your stake to make sure it is properly delegated by running the following command
 
@@ -295,4 +295,4 @@ Stake Authority: <pubkey>
 Withdraw Authority: <pubkey>
 ```
 
-If you see a value in "Activating Stake" then you should be successfully voting within 24 hours
+If you see a value in “Activating Stake” then you should be successfully voting within 24 hours
