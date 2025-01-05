@@ -3,7 +3,6 @@
 ## Table of Contents
 
 - [Run a K2 Validator](#run-a-k2-validator)
-  - [Table of Contents](#table-of-contents)
   - [Validator Requirements](#validator-requirements)
     - [Minimum Koii requirements](#minimum-koii-requirements)
     - [Hardware requirements](#hardware-requirements)
@@ -18,12 +17,12 @@
     - [1. Systemd service setup](#1-systemd-service-setup)
     - [2. Create a vote account](#2-create-a-vote-account)
     - [3. Enable and Start the Koii validator](#3-enable-and-start-the-koii-validator)
+    - [4. Configure the Commission Rate for Your Validator](#4-configure-the-commission-rate-for-your-validator)
+    - [5. Update Your Validator Information](#5-update-your-validator-information)
   - [Staking KOII in the validator](#staking-koii-in-the-validator)
     - [1. Create a stake account](#1-create-a-stake-account)
     - [2. Delegate the stake to your validator](#2-delegate-the-stake-to-your-validator)
     - [3. Check your delegated stake's status](#3-check-your-delegated-stakes-status)
-  - [Table of contents](#table-of-contents)
-  - [Table of contents](#table-of-contents)
 
 
 ## Validator Requirements
