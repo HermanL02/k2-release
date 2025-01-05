@@ -252,14 +252,27 @@ sudo systemctl start koii-validator.service
 sudo systemctl status koii-validator.service
 ```
 
-**3. Enable and Start the Koii validator**
+### 4. Configure the Commission Rate for Your Validator
 
+The commission rate determines the percentage of staking rewards allocated to the validator as a fee for their services, with the remainder distributed to the stakers. The commission rate must be a valid percentage between 0 and 100.
+
+To update the commission rate for your validator's vote account, use the following command:
+
+```bash
+koii vote-update-commission <VOTE_ACCOUNT_ADDRESS> <NEW_COMMISSION> --authorized-voter <PATH_TO_AUTHORIZED_VOTER_KEYPAIR>
+```
+### 5. Update Your Validator Information
+
+To update or publish your validator's information on the Koii network, use the following command:
+
+```bash
+koii validator-info publish "<VALIDATOR_NAME>" -w "<WEBSITE_URL>"
+```
 ---
 
 ## Staking KOII in the validator
 
 > Commands in this section are to be run on the computer which has the stake account key pair (**NOT ON VALIDATOR**)
-> 
 
 ### 1. Create a stake account
 
