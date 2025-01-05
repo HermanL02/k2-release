@@ -1,4 +1,4 @@
-# Run a K2 Validator
+# How to Set Up and Run a K2 Validator
 
 ## Table of Contents
 
