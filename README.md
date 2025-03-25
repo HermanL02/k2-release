@@ -15,11 +15,11 @@ K2 is a cutting-edge blockchain network developed by Koii Network, designed to r
 ## 🗂️ Repository Structure
 
 ### Directories and Files
-| File/Directory | Purpose |
-|---------------|---------|
-| `k2-install-init.sh` | Primary installation initialization script |
-| `k2-install-init_v*.sh` | Version-specific installation scripts |
-| `README.md` | Comprehensive project documentation |
+| File/Directory | Purpose | Version |
+|---------------|---------|---------|
+| `k2-install-init.sh` | Primary installation initialization script | Latest |
+| `k2-install-init_v*.sh` | Version-specific installation scripts | v1.14.19 - v1.16.6 |
+| `README.md` | Comprehensive project documentation | Current version |
 
 ### Version History
 The repository contains multiple installation scripts tracking K2 network evolution:
@@ -31,14 +31,14 @@ The repository contains multiple installation scripts tracking K2 network evolut
 
 ## 🔧 Technical Details
 
-### Technologies and Stack
+### Technologies and Architecture
 - **Blockchain Platform**: Koii Network K2
 - **Consensus Mechanism**: Proof-of-Stake (PoS)
 - **Primary Language**: Rust
 - **Installation Scripts**: Bash/Shell
 - **Supported OS**: Ubuntu 22.04 LTS
 
-### Architecture Overview
+#### Architecture Overview
 - Decentralized network with validator nodes
 - Modular blockchain infrastructure
 - Scalable transaction processing
