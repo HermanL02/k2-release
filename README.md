@@ -1,73 +1,31 @@
-# K2 Network: High-Performance Blockchain Infrastructure
+# K2 Network CLI: Blockchain Infrastructure Management Tool
 
-## 🌐 Project Overview
+## 🚀 Project Overview
 
-### Purpose
-K2 is a cutting-edge blockchain network developed by Koii Network, designed to revolutionize decentralized computing through high-performance, scalable, and efficient blockchain infrastructure.
+K2 Network CLI is a powerful command-line tool for managing and interacting with the Koii Network's high-performance blockchain infrastructure. This tool simplifies blockchain node setup, configuration, and network participation for developers, validators, and blockchain enthusiasts.
 
 ### Key Features
-- 🚀 High-throughput blockchain architecture
-- 🔒 Secure proof-of-stake consensus mechanism
-- 📊 Dynamic validator configuration
-- 🌈 Cross-chain interoperability
-- 🔧 Modular and flexible network design
+- 🔧 Streamlined blockchain node installation
+- 🌐 Version management for K2 Network
+- 🔒 Secure network configuration
+- 📊 Easy validator setup and management
 
-## 🗂️ Repository Structure
-
-### Directories and Files
-| File/Directory | Purpose | Version |
-|---------------|---------|---------|
-| `k2-install-init.sh` | Primary installation initialization script | Latest |
-| `k2-install-init_v*.sh` | Version-specific installation scripts | v1.14.19 - v1.16.6 |
-| `README.md` | Comprehensive project documentation | Current version |
-
-### Version History
-The repository contains multiple installation scripts tracking K2 network evolution:
-- `v1.14.19` - Early release
-- `v1.14.20` - Minor improvements
-- `v1.14.21` - Network stability updates
-- `v1.16.0` - Major feature release
-- `v1.16.6` - Latest stable version
-
-## 🔧 Technical Details
-
-### Technologies and Architecture
-- **Blockchain Platform**: Koii Network K2
-- **Consensus Mechanism**: Proof-of-Stake (PoS)
-- **Primary Language**: Rust
-- **Installation Scripts**: Bash/Shell
-- **Supported OS**: Ubuntu 22.04 LTS
-
-#### Architecture Overview
-- Decentralized network with validator nodes
-- Modular blockchain infrastructure
-- Scalable transaction processing
-- Secure and transparent network governance
-
-## 💻 System Requirements
-
-### Hardware Specifications
-| Node Type | Memory | Compute | Storage |
-|-----------|--------|---------|---------|
-| Consensus Node | 256GB | 12 cores / 24 threads @ 2.8GHz | 500GB PCIe NVME SSD |
-| RPC Node | 512GB | 16 cores / 32 threads | 2TB High TBW NVME SSD |
-
-### Network Configuration
-- **Firewall Ports**: 
-  - 10000-10500 (UDP/TCP)
-  - 10899/TCP
-  - 10900/TCP
-- **Network Connection**: 1 Gbps symmetric
-
-## 🚀 Quick Start Guide
+## 💾 Installation
 
 ### Prerequisites
-- Ubuntu 22.04 server
+- Ubuntu 22.04 LTS
 - Sudo access
 - Basic networking knowledge
-- KOII tokens for staking
 
-### Installation Steps
+### Installation Methods
+
+#### Automated Installation
+```bash
+# Download and run the latest installation script
+sh -c "$(curl -sSfL https://raw.githubusercontent.com/koii-network/k2-release/master/k2-install-init.sh)"
+```
+
+#### Manual Installation
 ```bash
 # Update system packages
 sudo apt update && sudo apt upgrade
@@ -75,19 +33,80 @@ sudo apt update && sudo apt upgrade
 # Install dependencies
 sudo apt install libssl-dev libudev-dev pkg-config zlib1g-dev llvm clang
 
-# Create Koii user
+# Create Koii user (optional but recommended)
 sudo adduser koii
 sudo usermod -aG sudo koii
+```
 
-# Install Koii CLI
-sh -c "$(curl -sSfL https://raw.githubusercontent.com/koii-network/k2-release/master/k2-install-init_v1.16.6.sh)"
+## 🖥️ Usage
+
+### Basic Commands
+
+```bash
+# Initialize K2 Network node
+k2 init
+
+# Check node status
+k2 status
+
+# Update to latest version
+k2 update
+```
+
+### Advanced Usage
+
+```bash
+# Configure validator settings
+k2 validator configure --stake 10000 --name "MyValidator"
+
+# View network configuration
+k2 network info
+
+# Check node synchronization
+k2 sync status
+```
+
+## 📋 Command Reference
+
+| Command | Description | Options |
+|---------|-------------|---------|
+| `init` | Initialize K2 Network node | `--version`, `--network` |
+| `status` | Display current node status | `--detailed` |
+| `update` | Update to latest K2 version | `--force`, `--version` |
+| `validator configure` | Configure validator settings | `--stake`, `--name`, `--public-key` |
+| `network info` | Show network details | `--peers`, `--consensus` |
+
+## 🔧 Configuration
+
+Configuration is managed through `~/.k2/config.json`:
+
+```json
+{
+    "network": "mainnet",
+    "validator": {
+        "name": "MyValidator",
+        "stake": 10000,
+        "public_key": "..."
+    }
+}
+```
+
+## 📂 Project Structure
+
+```
+k2-cli/
+├── bin/           # Compiled binaries
+├── config/        # Configuration templates
+├── scripts/       # Installation and utility scripts
+└── versions/      # Version-specific components
 ```
 
 ## 🤝 Contributing
+
 1. Fork the repository
 2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
+3. Commit changes with clear messages
+4. Push to your branch
 5. Create a pull request
 
 ### Contribution Guidelines
@@ -96,15 +115,18 @@ sh -c "$(curl -sSfL https://raw.githubusercontent.com/koii-network/k2-release/ma
 - Include comprehensive testing
 
 ## 📜 License
-Refer to the Koii Network official licensing terms.
+
+This project is part of the Koii Network. Refer to the official licensing terms at [Koii Network License](https://koii.network/license).
 
 ## 🔗 Additional Resources
-- [Koii Network Official Website](https://koii.network)
+
+- [Koii Network Website](https://koii.network)
 - [K2 Network Documentation](https://docs.koii.network)
-- [Community Support Channel](https://discord.gg/koii)
+- [Community Support](https://discord.gg/koii)
 
 ## 📞 Support
-For technical support, community assistance, or reporting issues:
+
+For technical support:
 - Open a GitHub Issue
 - Join the Koii Network Discord
 - Email: support@koii.network
