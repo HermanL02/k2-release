@@ -2,53 +2,35 @@
 
 ## 🌐 Project Overview
 
+K2 is a cutting-edge blockchain network developed by Koii Network, designed to revolutionize decentralized computing through high-performance, scalable, and efficient blockchain infrastructure. This repository contains installation scripts and initialization tools for setting up K2 network nodes.
+
 ### Purpose
-K2 is a cutting-edge blockchain network developed by Koii Network, designed to revolutionize decentralized computing through high-performance, scalable, and efficient blockchain infrastructure.
+- Provide a robust, high-throughput blockchain platform
+- Enable decentralized computing with advanced network infrastructure
+- Support validators and node operators in deploying K2 network components
 
-### Key Features
-- 🚀 High-throughput blockchain architecture
-- 🔒 Secure proof-of-stake consensus mechanism
-- 📊 Dynamic validator configuration
-- 🌈 Cross-chain interoperability
-- 🔧 Modular and flexible network design
+## 🚀 Features / Capabilities
 
-## 🗂️ Repository Structure
+- High-throughput blockchain architecture
+- Secure proof-of-stake consensus mechanism
+- Dynamic validator configuration
+- Cross-chain interoperability
+- Modular and flexible network design
+- Multi-version installation support
 
-### Directories and Files
-| File/Directory | Purpose | Version |
-|---------------|---------|---------|
-| `k2-install-init.sh` | Primary installation initialization script | Latest |
-| `k2-install-init_v*.sh` | Version-specific installation scripts | v1.14.19 - v1.16.6 |
-| `README.md` | Comprehensive project documentation | Current version |
+## 🔧 Technologies Used
 
-### Version History
-The repository contains multiple installation scripts tracking K2 network evolution:
-- `v1.14.19` - Early release
-- `v1.14.20` - Minor improvements
-- `v1.14.21` - Network stability updates
-- `v1.16.0` - Major feature release
-- `v1.16.6` - Latest stable version
-
-## 🔧 Technical Details
-
-### Technologies and Architecture
+- **Primary Language**: Rust
 - **Blockchain Platform**: Koii Network K2
 - **Consensus Mechanism**: Proof-of-Stake (PoS)
-- **Primary Language**: Rust
 - **Installation Scripts**: Bash/Shell
-- **Supported OS**: Ubuntu 22.04 LTS
-
-#### Architecture Overview
-- Decentralized network with validator nodes
-- Modular blockchain infrastructure
-- Scalable transaction processing
-- Secure and transparent network governance
+- **Supported Operating System**: Ubuntu 22.04 LTS
 
 ## 💻 System Requirements
 
 ### Hardware Specifications
 | Node Type | Memory | Compute | Storage |
-|-----------|--------|---------|---------|
+|-----------|--------|---------|---------| 
 | Consensus Node | 256GB | 12 cores / 24 threads @ 2.8GHz | 500GB PCIe NVME SSD |
 | RPC Node | 512GB | 16 cores / 32 threads | 2TB High TBW NVME SSD |
 
@@ -59,7 +41,15 @@ The repository contains multiple installation scripts tracking K2 network evolut
   - 10900/TCP
 - **Network Connection**: 1 Gbps symmetric
 
-## 🚀 Quick Start Guide
+## 🗂️ Project Structure
+
+### Installation Scripts
+| Script | Version | Purpose |
+|--------|---------|---------|
+| `k2-install-init.sh` | Latest | Primary installation initialization script |
+| `k2-install-init_v*.sh` | v1.14.19 - v1.16.6 | Version-specific installation scripts |
+
+## 🚀 Getting Started
 
 ### Prerequisites
 - Ubuntu 22.04 server
@@ -84,6 +74,7 @@ sh -c "$(curl -sSfL https://raw.githubusercontent.com/koii-network/k2-release/ma
 ```
 
 ## 🤝 Contributing
+
 1. Fork the repository
 2. Create a feature branch
 3. Commit your changes
@@ -96,14 +87,17 @@ sh -c "$(curl -sSfL https://raw.githubusercontent.com/koii-network/k2-release/ma
 - Include comprehensive testing
 
 ## 📜 License
+
 Refer to the Koii Network official licensing terms.
 
 ## 🔗 Additional Resources
+
 - [Koii Network Official Website](https://koii.network)
 - [K2 Network Documentation](https://docs.koii.network)
 - [Community Support Channel](https://discord.gg/koii)
 
 ## 📞 Support
+
 For technical support, community assistance, or reporting issues:
 - Open a GitHub Issue
 - Join the Koii Network Discord
