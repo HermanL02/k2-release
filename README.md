@@ -1,89 +1,71 @@
-# K2 Network: High-Performance Blockchain Infrastructure
+# K2 Network: High-Performance Blockchain Infrastructure Installation Scripts
 
 ## 🌐 Project Overview
 
-### Purpose
-K2 is a cutting-edge blockchain network developed by Koii Network, designed to revolutionize decentralized computing through high-performance, scalable, and efficient blockchain infrastructure.
+K2 is a cutting-edge blockchain network developed by Koii Network, providing high-performance, scalable, and efficient blockchain infrastructure. This repository contains the official installation scripts for setting up K2 nodes and initializing the network.
 
-### Key Features
-- 🚀 High-throughput blockchain architecture
-- 🔒 Secure proof-of-stake consensus mechanism
-- 📊 Dynamic validator configuration
-- 🌈 Cross-chain interoperability
-- 🔧 Modular and flexible network design
+## 🚀 Features / Capabilities
 
-## 🗂️ Repository Structure
+- 📦 Multiple version-specific installation scripts
+- 🔧 Flexible deployment for different system configurations
+- 🌐 Cross-platform support (Linux, MacOS)
+- 🔒 Secure network initialization process
 
-### Directories and Files
-| File/Directory | Purpose | Version |
-|---------------|---------|---------|
-| `k2-install-init.sh` | Primary installation initialization script | Latest |
-| `k2-install-init_v*.sh` | Version-specific installation scripts | v1.14.19 - v1.16.6 |
-| `README.md` | Comprehensive project documentation | Current version |
+## 📦 Project Structure
 
-### Version History
-The repository contains multiple installation scripts tracking K2 network evolution:
-- `v1.14.19` - Early release
-- `v1.14.20` - Minor improvements
-- `v1.14.21` - Network stability updates
-- `v1.16.0` - Major feature release
-- `v1.16.6` - Latest stable version
+```
+.
+├── k2-install-init.sh             # Latest primary installation script
+├── k2-install-init_v*.sh          # Version-specific installation scripts
+└── README.md                      # Project documentation
+```
 
-## 🔧 Technical Details
+## 🛠️ Technologies Used
 
-### Technologies and Architecture
-- **Blockchain Platform**: Koii Network K2
-- **Consensus Mechanism**: Proof-of-Stake (PoS)
-- **Primary Language**: Rust
-- **Installation Scripts**: Bash/Shell
-- **Supported OS**: Ubuntu 22.04 LTS
+- **Primary Language**: Shell Script (Bash)
+- **Target Platform**: Linux, MacOS
+- **Supported Architectures**: x86_64, ARM64
+- **Operating Systems**: Ubuntu 22.04 LTS, MacOS
 
-#### Architecture Overview
-- Decentralized network with validator nodes
-- Modular blockchain infrastructure
-- Scalable transaction processing
-- Secure and transparent network governance
-
-## 💻 System Requirements
-
-### Hardware Specifications
-| Node Type | Memory | Compute | Storage |
-|-----------|--------|---------|---------|
-| Consensus Node | 256GB | 12 cores / 24 threads @ 2.8GHz | 500GB PCIe NVME SSD |
-| RPC Node | 512GB | 16 cores / 32 threads | 2TB High TBW NVME SSD |
-
-### Network Configuration
-- **Firewall Ports**: 
-  - 10000-10500 (UDP/TCP)
-  - 10899/TCP
-  - 10900/TCP
-- **Network Connection**: 1 Gbps symmetric
-
-## 🚀 Quick Start Guide
+## 🚀 Getting Started
 
 ### Prerequisites
-- Ubuntu 22.04 server
-- Sudo access
-- Basic networking knowledge
-- KOII tokens for staking
 
-### Installation Steps
+- Linux (Ubuntu 22.04) or MacOS
+- Sudo/root access
+- Internet connection
+- Minimum system requirements:
+  - 8GB RAM
+  - 100GB Storage
+  - Stable network connection
+
+### Installation
+
+1. Update your system packages:
 ```bash
-# Update system packages
 sudo apt update && sudo apt upgrade
+```
 
-# Install dependencies
+2. Install dependencies:
+```bash
 sudo apt install libssl-dev libudev-dev pkg-config zlib1g-dev llvm clang
+```
 
-# Create Koii user
-sudo adduser koii
-sudo usermod -aG sudo koii
-
-# Install Koii CLI
+3. Run the installation script:
+```bash
 sh -c "$(curl -sSfL https://raw.githubusercontent.com/koii-network/k2-release/master/k2-install-init_v1.16.6.sh)"
 ```
 
+## 📋 Version Support
+
+This repository supports multiple K2 network versions:
+- v1.14.19
+- v1.14.20
+- v1.14.21
+- v1.16.0 - v1.16.6 (Latest Stable)
+
 ## 🤝 Contributing
+
 1. Fork the repository
 2. Create a feature branch
 3. Commit your changes
@@ -91,20 +73,29 @@ sh -c "$(curl -sSfL https://raw.githubusercontent.com/koii-network/k2-release/ma
 5. Create a pull request
 
 ### Contribution Guidelines
-- Follow existing code structure
-- Ensure compatibility with latest K2 network version
-- Include comprehensive testing
+- Follow existing script structure
+- Ensure compatibility with K2 network requirements
+- Include comments and documentation for changes
+
+## 🔒 Security
+
+- Always verify script contents before execution
+- Use official sources for downloads
+- Keep your system and dependencies updated
 
 ## 📜 License
+
 Refer to the Koii Network official licensing terms.
 
 ## 🔗 Additional Resources
+
 - [Koii Network Official Website](https://koii.network)
 - [K2 Network Documentation](https://docs.koii.network)
-- [Community Support Channel](https://discord.gg/koii)
+- [Community Support](https://discord.gg/koii)
 
 ## 📞 Support
-For technical support, community assistance, or reporting issues:
+
+For technical support:
 - Open a GitHub Issue
 - Join the Koii Network Discord
 - Email: support@koii.network
