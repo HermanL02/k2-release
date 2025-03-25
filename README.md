@@ -2,64 +2,43 @@
 
 ## 🌐 Project Overview
 
-### Purpose
 K2 is a cutting-edge blockchain network developed by Koii Network, designed to revolutionize decentralized computing through high-performance, scalable, and efficient blockchain infrastructure.
 
-### Key Features
-- 🚀 High-throughput blockchain architecture
-- 🔒 Secure proof-of-stake consensus mechanism
-- 📊 Dynamic validator configuration
-- 🌈 Cross-chain interoperability
-- 🔧 Modular and flexible network design
+### Key Objectives
+- Provide a robust, scalable blockchain platform
+- Enable high-throughput decentralized applications
+- Support cross-chain interoperability
+- Simplify blockchain node deployment and management
 
-## 🗂️ Repository Structure
+## 🚀 Features and Capabilities
 
-### Directories and Files
-| File/Directory | Purpose | Version |
-|---------------|---------|---------|
-| `k2-install-init.sh` | Primary installation initialization script | Latest |
-| `k2-install-init_v*.sh` | Version-specific installation scripts | v1.14.19 - v1.16.6 |
-| `README.md` | Comprehensive project documentation | Current version |
+- **High-Performance Architecture**
+  - 🔧 Dynamic validator configuration
+  - 📊 Scalable transaction processing
+  - 🌈 Cross-chain compatibility
 
-### Version History
-The repository contains multiple installation scripts tracking K2 network evolution:
-- `v1.14.19` - Early release
-- `v1.14.20` - Minor improvements
-- `v1.14.21` - Network stability updates
-- `v1.16.0` - Major feature release
-- `v1.16.6` - Latest stable version
-
-## 🔧 Technical Details
-
-### Technologies and Architecture
-- **Blockchain Platform**: Koii Network K2
-- **Consensus Mechanism**: Proof-of-Stake (PoS)
-- **Primary Language**: Rust
-- **Installation Scripts**: Bash/Shell
-- **Supported OS**: Ubuntu 22.04 LTS
-
-#### Architecture Overview
-- Decentralized network with validator nodes
-- Modular blockchain infrastructure
-- Scalable transaction processing
-- Secure and transparent network governance
+- **Security and Consensus**
+  - 🔒 Proof-of-Stake (PoS) consensus mechanism
+  - 🛡️ Secure network governance
+  - 🔐 Transparent node validation
 
 ## 💻 System Requirements
 
 ### Hardware Specifications
 | Node Type | Memory | Compute | Storage |
-|-----------|--------|---------|---------|
+|-----------|--------|---------|---------| 
 | Consensus Node | 256GB | 12 cores / 24 threads @ 2.8GHz | 500GB PCIe NVME SSD |
 | RPC Node | 512GB | 16 cores / 32 threads | 2TB High TBW NVME SSD |
 
 ### Network Configuration
+- **Supported OS**: Ubuntu 22.04 LTS
 - **Firewall Ports**: 
   - 10000-10500 (UDP/TCP)
   - 10899/TCP
   - 10900/TCP
 - **Network Connection**: 1 Gbps symmetric
 
-## 🚀 Quick Start Guide
+## 🛠️ Installation and Setup
 
 ### Prerequisites
 - Ubuntu 22.04 server
@@ -67,7 +46,7 @@ The repository contains multiple installation scripts tracking K2 network evolut
 - Basic networking knowledge
 - KOII tokens for staking
 
-### Installation Steps
+### Quick Installation
 ```bash
 # Update system packages
 sudo apt update && sudo apt upgrade
@@ -83,28 +62,45 @@ sudo usermod -aG sudo koii
 sh -c "$(curl -sSfL https://raw.githubusercontent.com/koii-network/k2-release/master/k2-install-init_v1.16.6.sh)"
 ```
 
+## 📂 Repository Structure
+
+| File/Script | Purpose | Version |
+|------------|---------|---------|
+| `k2-install-init.sh` | Primary installation script | Latest |
+| `k2-install-init_v*.sh` | Version-specific installation scripts | v1.14.19 - v1.16.6 |
+
+## 🔧 Technical Stack
+
+- **Blockchain Platform**: Koii Network K2
+- **Consensus Mechanism**: Proof-of-Stake (PoS)
+- **Primary Language**: Rust
+- **Installation Scripts**: Bash/Shell
+
 ## 🤝 Contributing
+
 1. Fork the repository
 2. Create a feature branch
 3. Commit your changes
 4. Push to the branch
 5. Create a pull request
 
-### Contribution Guidelines
+### Guidelines
 - Follow existing code structure
 - Ensure compatibility with latest K2 network version
 - Include comprehensive testing
 
 ## 📜 License
+
 Refer to the Koii Network official licensing terms.
 
-## 🔗 Additional Resources
-- [Koii Network Official Website](https://koii.network)
+## 🔗 Resources
+
+- [Koii Network Website](https://koii.network)
 - [K2 Network Documentation](https://docs.koii.network)
-- [Community Support Channel](https://discord.gg/koii)
+- [Community Support](https://discord.gg/koii)
 
 ## 📞 Support
-For technical support, community assistance, or reporting issues:
+
 - Open a GitHub Issue
 - Join the Koii Network Discord
 - Email: support@koii.network
